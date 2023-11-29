@@ -1,4 +1,5 @@
 from rest_framework.views import APIView
+from rest_framework import generics
 from book.models import BookModel
 from .serializer import BookListSerializer, PriceListSerializer
 from rest_framework.response import Response
@@ -59,3 +60,8 @@ class Time(APIView):
         else:
             message = "Sorry! our Bookshop closed, You can visit business hours(4:00am to 6:00pm). Thank you."
         return Response({"message" : message})
+
+
+class CreateBookView(generics.CreateAPIView):
+    queryset = BookModel.objects.all()
+    serializer_class = BookListSerializer
